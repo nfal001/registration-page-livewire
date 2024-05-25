@@ -2,7 +2,7 @@
 
 exploring livewire technology needed for TALL Stack. sistem daftar santri idn. + adminLTE
 
-![preview](https://raw.githubusercontent.com/nfal001/registration-page-livewire/master/.github/readm/ss.png)
+![preview](https://raw.githubusercontent.com/nfal001/registration-page-livewire/master/.github/readm/moress.png)
 
 ## Installation
 
