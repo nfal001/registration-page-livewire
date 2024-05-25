@@ -4,6 +4,11 @@
     </div>
 
     <form wire:submit="daftarSantriSubmit">
+        @if (session('error'))
+        <div class="form-group mx-3 my-4" x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 5000)">
+            <h3>{{ session('error') }}</h3>
+        </div>
+        @endif
         @error('daftarSantriSubmit')
         aldkjSAdlkjsadlkasjdlkadsjlaskdjlkj
         {{ $message }}

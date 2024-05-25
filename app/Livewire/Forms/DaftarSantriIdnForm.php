@@ -3,6 +3,7 @@
 namespace App\Livewire\Forms;
 
 use App\Models\PendaftaranSantri;
+use App\Models\ProgramPendidikan;
 use App\Models\User;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
@@ -36,21 +37,31 @@ class DaftarSantriIdnForm extends Form
 
     public function store()
     {
-        // cases lain belum
         $this->validate();
-        $filename = Str::uuid();
-        $this->buktiTransferImage->storeAs('public/data-pendaftaran', $filename);
-        $pendaftaran = new PendaftaranSantri(
-            [
-                'nama' => $this->namaSantri,
-                'jenis_kelamin' => $this->jenisKelamin,
-                'bukti_transfer' => $filename,
-                'cabang_idn_id' => $this->cabangIdnId,
-                'program_pendidikan' => $this->programIdnId
-            ]
-        );
-        $newUser = User::create($this->only(['email', 'password']));
-        $pendaftaran->user()->associate($newUser);
-        $pendaftaran->save();
+        
+        // cases seatAvailable
+        $prodikLimit = ProgramPendidikan::find($this->programIdnId)->limit_kuota;
+        $totalPendaftar = PendaftaranSantri::where('cabang_idn_id',$this->cabangIdnId)->where('program_pendidikan',$this->programIdnId);
+        $isSeatsAvailable = $prodikLimit - $totalPendaftar->count() >  0;
+        // dd($this,$isSeatsAvailable,$totalPendaftar->count(),$prodikLimit);
+        if($isSeatsAvailable){
+            $filename = Str::uuid();
+            $this->buktiTransferImage->storeAs('public/data-pendaftaran', $filename);
+            $pendaftaran = new PendaftaranSantri(
+                [
+                    'nama' => $this->namaSantri,
+                    'jenis_kelamin' => $this->jenisKelamin,
+                    'bukti_transfer' => $filename,
+                    'cabang_idn_id' => $this->cabangIdnId,
+                    'program_pendidikan' => $this->programIdnId
+                ]
+            );
+            $newUser = User::create($this->only(['email', 'password']));
+            $pendaftaran->user()->associate($newUser);
+            $pendaftaran->save();
+            session()->flash('daftar-santri-ok','Daftar Satri baru berhasil dilakukan');
+        } else {
+            session()->flash('error','KUOTA SUDAH PENUH, silakan pilih cabang lainn');
+        }
     }
 }

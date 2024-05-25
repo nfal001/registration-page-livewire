@@ -16,7 +16,7 @@ class DaftarSantriSection extends Component
         // dd($this);
         
         $this->formDaftarSantri->store();
-        session()->flash('daftar-santri-ok','Daftar Satri baru berhasil dilakukan');
+
         return;
     }
 
