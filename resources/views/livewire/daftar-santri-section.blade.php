@@ -194,11 +194,21 @@
             </button>
             {{-- Dasar Fitur Flash --}}
             @if(session('daftar-santri-ok'))
-            <div class="my-5" x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 5000)">
-                <h5>{{ session('daftar-santri-ok') }}</h5>
-                <p>Nama: {{  $formDaftarSantri->namaSantri }}</p>
-                <p>Cabang: </p>
-                <p>Program: </p>
+            <div class="my-5" x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 10000)">
+               <p>Anda telah berhasil daftar menjadi calon santri IDN, berikut detail data pendaftaran anda :</p> 
+               <p>
+                   Nama : {{  $formDaftarSantri->namaSantri }}
+               </p>
+               <p>
+                   Cabang : {{  \App\Models\CabangIdn::find($formDaftarSantri->cabangIdnId)->nama }}
+               </p>
+               <p>
+                   Program: {{  \App\Models\ProgramPendidikan::find($formDaftarSantri->programIdnId)->nama }}
+               </p>
+               <p>
+                   Untuk melanjutkan proses penerimaan santri baru, silahkan login ke aplikasi.
+               </p>
+               <button href="/interview" class="btn btn-success" wire:navigate>Login Disini</button>
             </div>
             @endif
         </div>

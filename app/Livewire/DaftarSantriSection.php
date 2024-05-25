@@ -3,6 +3,7 @@
 namespace App\Livewire;
 use App\Livewire\Forms\DaftarSantriIdnForm;
 use App\Models\PendaftaranSantri;
+use App\Models\ProgramPendidikan;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -22,6 +23,15 @@ class DaftarSantriSection extends Component
 
     public function render()
     {
-        return view('livewire.daftar-santri-section',['']);
+
+        // todo
+        // draft quotachecker
+        // if($this->formDaftarSantri->programIdnId){
+        //     if(ProgramPendidikan::find($this->formDaftarSantri->programIdnId)->limit_kuota <= 0){
+        //         session()->flash('max-quota','');
+        //     }
+        // }
+
+        return view('livewire.daftar-santri-section');
     }
 }
