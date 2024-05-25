@@ -36,9 +36,8 @@ class DaftarSantriIdnForm extends Form
 
     public function store()
     {
-        // todo
+        // cases lain belum
         $this->validate();
-        // dd($this->all());
         $filename = Str::uuid();
         $this->buktiTransferImage->storeAs('public/data-pendaftaran', $filename);
         $pendaftaran = new PendaftaranSantri(

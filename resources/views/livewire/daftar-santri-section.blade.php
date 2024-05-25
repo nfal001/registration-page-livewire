@@ -150,7 +150,12 @@
                         <label
                             class="custom-file-label"
                             for="buktiTransferBayar"
-                            >@if($formDaftarSantri->buktiTransferImage) {{ $formDaftarSantri->buktiTransferImage->getClientOriginalName() }} @else Choose File @endif</label
+                            >
+                            @error('formDaftarSantri.buktiTransferImage')
+                            Failed Upload File
+                                @else
+                                @if($formDaftarSantri->buktiTransferImage) {{ $formDaftarSantri->buktiTransferImage->getClientOriginalName() }} @else Choose File @endif
+                            @enderror </label
                         >
                     </div>
                 </div>
@@ -159,18 +164,20 @@
                     <div class="progress-bar bg-primary progress-bar-striped" role="progressbar" aria-valuemin="0" aria-valuemax="100" :style="{ width: `${progress}%` }">
                     </div>
                 </div>
+                
+                @error('formDaftarSantri.buktiTransferImage')
+                <div class="my-3">
+                    <span class="text-danger">{{ $message }}</span>
+                </div>
+                @else
                 @if($formDaftarSantri->buktiTransferImage)
                 <div class="form-group my-3">
                     <h5 class="mb-3">preview image</h5>
                     <img class="img-fluid" name="pic" src="{{ $formDaftarSantri->buktiTransferImage->temporaryUrl() }}" alt="temporaryImage">
                 </div>
                 @endif
+                @enderror
             </div>
-            @error('formDaftarSantri.buktiTransferImage')
-            <div class="mb-3">
-                 <span class="text-danger">{{ $message }}</span>
-            </div>
-            @enderror
         </div>
 
         <div class="card-footer">
@@ -180,6 +187,15 @@
             >
                 Submit
             </button>
+            {{-- Dasar Fitur Flash --}}
+            @if(session('daftar-santri-ok'))
+            <div class="my-5" x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 5000)">
+                <h5>{{ session('daftar-santri-ok') }}</h5>
+                <p>Nama: {{  $formDaftarSantri->namaSantri }}</p>
+                <p>Cabang: </p>
+                <p>Program: </p>
+            </div>
+            @endif
         </div>
     </form>
 </div>

@@ -18,6 +18,12 @@ Copy Enviroment file
 cp .env.example .env
 ```
 
+Generate App Key
+
+```
+php artisan key:generate
+```
+
 Export Migration
 
 ```
