@@ -56,7 +56,10 @@ class DaftarSantriIdnForm extends Form
                     'program_pendidikan' => $this->programIdnId
                 ]
             );
-            $newUser = User::create($this->only(['email', 'password']));
+            $newUser = User::create([
+                'email' => $this->email,
+                'password' => bcrypt($this->password)
+            ]);
             $pendaftaran->user()->associate($newUser);
             $pendaftaran->save();
             session()->flash('daftar-santri-ok','Daftar Satri baru berhasil dilakukan');

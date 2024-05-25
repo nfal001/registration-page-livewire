@@ -28,7 +28,7 @@ class DaftarSantriSection extends Component
         // draft quotachecker
         // if($this->formDaftarSantri->programIdnId){
         //     if(ProgramPendidikan::find($this->formDaftarSantri->programIdnId)->limit_kuota <= 0){
-        //         session()->flash('max-quota','');
+        //         session()->flash('max-quota-exceeded','');
         //     }
         // }
 
