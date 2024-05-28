@@ -9,7 +9,7 @@
                 @forelse ($cabangList as $cabang)
                 <option value="{{ $cabang->id }}" :key="$cabang->id">{{ $cabang->nama }}</option>
                 @empty
-                <option value="" selected>maaf, tidak ada cabang tersedia</option>
+                <option value="" hidden>maaf, tidak ada cabang tersedia</option>
                 @endforelse
             </select>
         </div>

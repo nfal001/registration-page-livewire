@@ -41,11 +41,11 @@ class DaftarSantriIdnForm extends Form
 
         // cases seatAvailable
         $prodikLimit = ProgramPendidikan::find($this->programIdnId)->limit_kuota;
-        $totalPendaftar = PendaftaranSantri::where('cabang_idn_id',$this->cabangIdnId)->where('program_pendidikan',$this->programIdnId);
+        $totalPendaftar = PendaftaranSantri::where('cabang_idn_id', $this->cabangIdnId)->where('program_pendidikan', $this->programIdnId);
         $isSeatsAvailable = $prodikLimit - $totalPendaftar->count() >  0;
         // dd($this,$isSeatsAvailable,$totalPendaftar->count(),$prodikLimit);
-        if($isSeatsAvailable){
-            $filename = Str::uuid();
+        if ($isSeatsAvailable) {
+            $filename = Str::uuid() . '.' . $this->buktiTransferImage->extension();
             $this->buktiTransferImage->storeAs('public/data-pendaftaran', $filename);
             $pendaftaran = new PendaftaranSantri(
                 [
@@ -62,14 +62,14 @@ class DaftarSantriIdnForm extends Form
                     'password' => bcrypt($this->password)
                 ]);
             } catch (\Throwable $th) {
-                session()->flash('error','Email Sudah Terdaftar, silakan login dengan akun anda');
+                session()->flash('error', 'Email Sudah Terdaftar, silakan login dengan akun anda');
                 return;
             }
             $pendaftaran->user()->associate($newUser);
             $pendaftaran->save();
-            session()->flash('daftar-santri-ok','Daftar Satri baru berhasil dilakukan');
+            session()->flash('daftar-santri-ok', 'Daftar Satri baru berhasil dilakukan');
         } else {
-            session()->flash('error','KUOTA SUDAH PENUH, silakan pilih cabang lainn');
+            session()->flash('error', 'KUOTA SUDAH PENUH, silakan pilih cabang lainn');
         }
     }
 }

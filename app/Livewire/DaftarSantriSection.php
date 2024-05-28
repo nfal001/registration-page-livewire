@@ -14,8 +14,7 @@ class DaftarSantriSection extends Component
 
 
     public function daftarSantriSubmit() {
-        // dd($this);
-        
+
         $this->formDaftarSantri->store();
 
         return;

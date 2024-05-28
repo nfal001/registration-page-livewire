@@ -103,7 +103,7 @@
             @enderror
             <div class="form-group">
                 <label>Cabang IDN</label>
-                <select class="custom-select @error('formDaftarSantri.cabangIdnId') is-invalid @enderror"  wire:model.blur="formDaftarSantri.cabangIdnId">
+                <select class="custom-select @error('formDaftarSantri.cabangIdnId') is-invalid @enderror"  wire:model.change="formDaftarSantri.cabangIdnId">
                     <option value="" selected>pilih cabang idn</option>
                     @foreach (\App\Models\CabangIdn::all() as $cabangIdn)
                         <option value="{{ $cabangIdn->id }}">{{ $cabangIdn->nama }}</option>
