@@ -1,6 +1,7 @@
 <div>
+@if($cabang)
     <h5 class="my-4">Data Kuota Pedaftaran {{ $cabang->nama }}</h5>
-    @foreach ($cabang->programPendidikan as $prodi)    
+    @foreach ($cabang->programPendidikan as $prodi)
     <div class="card card-info card-outline">
         <div class="card-header">
             <h5 class="card-title">
@@ -19,4 +20,5 @@
         </div>
     </div>
     @endforeach
+@endif
 </div>

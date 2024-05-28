@@ -6,9 +6,11 @@
         <div class="form-group">
             <label>Pilih Cabang IDN</label>
             <select class="custom-select" wire:model.change="cabangId">
-                @foreach ($cabangList as $cabang)
-                    <option value="{{ $cabang->id }}" :key="$cabang->id">{{ $cabang->nama }}</option>
-                @endforeach
+                @forelse ($cabangList as $cabang)
+                <option value="{{ $cabang->id }}" :key="$cabang->id">{{ $cabang->nama }}</option>
+                @empty
+                <option value="" selected>maaf, tidak ada cabang tersedia</option>
+                @endforelse
             </select>
         </div>
         @if ($cabangId)

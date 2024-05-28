@@ -78,7 +78,7 @@
                         id="gender-ikhwan"
                         wire:model.blur="formDaftarSantri.jenisKelamin"
                     />
-                    <label class="form-check-label" for="gender-ikhwan" 
+                    <label class="form-check-label" for="gender-ikhwan"
                         >Ikhwan</label
                     >
                 </div>
@@ -122,7 +122,7 @@
                 <select class="custom-select @error('formDaftarSantri.programIdnId') is-invalid @enderror">
                     <option value="" selected>pilih prodi</option>
                     @foreach (\App\Models\ProgramPendidikan::where('cabang_idn_id',$formDaftarSantri->cabangIdnId)->get() as $prodi)
-                  <option value="{{ $prodi->id }}">{{ $prodi->nama }} : Tersedia {{ $prodi->limit_kuota - \App\Models\PendaftaranSantri::where('cabang_idn_id',$formDaftarSantri->cabangIdnId)->where('program_pendidikan',$prodi->id)->count() }}</option>     
+                  <option value="{{ $prodi->id }}">{{ $prodi->nama }} : Tersedia {{ $prodi->limit_kuota - \App\Models\PendaftaranSantri::where('cabang_idn_id',$formDaftarSantri->cabangIdnId)->where('program_pendidikan',$prodi->id)->count() }}</option>
                     @endforeach
                 </select>
             </div>
@@ -143,7 +143,7 @@
                 <label for="buktiTransferBayar"
                     >Lampiran Bukti Pendaftaran</label
                 >
-                
+
                 <div class="input-group">
                     <div class="custom-file @error('formDaftarSantri.buktiTransferImage') is-invalid @enderror">
                         <input
@@ -164,12 +164,12 @@
                         >
                     </div>
                 </div>
-                
+
                 <div class="progress my-3" x-show="uploading">
                     <div class="progress-bar bg-primary progress-bar-striped" role="progressbar" aria-valuemin="0" aria-valuemax="100" :style="{ width: `${progress}%` }">
                     </div>
                 </div>
-                
+
                 @error('formDaftarSantri.buktiTransferImage')
                 <div class="my-3">
                     <span class="text-danger">{{ $message }}</span>
@@ -189,13 +189,16 @@
             <button
                 type="submit"
                 class="btn btn-primary"
+                @if (session('error'))
+                    disabled
+                @endif
             >
                 Submit
             </button>
             {{-- Dasar Fitur Flash --}}
             @if(session('daftar-santri-ok'))
             <div class="my-5" x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 10000)">
-               <p>Anda telah berhasil daftar menjadi calon santri IDN, berikut detail data pendaftaran anda :</p> 
+               <p>Anda telah berhasil daftar menjadi calon santri IDN, berikut detail data pendaftaran anda :</p>
                <p>
                    Nama : {{  $formDaftarSantri->namaSantri }}
                </p>

@@ -38,7 +38,7 @@ class DaftarSantriIdnForm extends Form
     public function store()
     {
         $this->validate();
-        
+
         // cases seatAvailable
         $prodikLimit = ProgramPendidikan::find($this->programIdnId)->limit_kuota;
         $totalPendaftar = PendaftaranSantri::where('cabang_idn_id',$this->cabangIdnId)->where('program_pendidikan',$this->programIdnId);
@@ -56,10 +56,15 @@ class DaftarSantriIdnForm extends Form
                     'program_pendidikan' => $this->programIdnId
                 ]
             );
-            $newUser = User::create([
-                'email' => $this->email,
-                'password' => bcrypt($this->password)
-            ]);
+            try {
+                $newUser = User::create([
+                    'email' => $this->email,
+                    'password' => bcrypt($this->password)
+                ]);
+            } catch (\Throwable $th) {
+                session()->flash('error','Email Sudah Terdaftar, silakan login dengan akun anda');
+                return;
+            }
             $pendaftaran->user()->associate($newUser);
             $pendaftaran->save();
             session()->flash('daftar-santri-ok','Daftar Satri baru berhasil dilakukan');
